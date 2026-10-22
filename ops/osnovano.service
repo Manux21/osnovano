@@ -1,0 +1,25 @@
+[Unit]
+Description=Osnovano Nuxt website
+After=network.target
+
+[Service]
+Type=simple
+User=osnovano
+Group=osnovano
+WorkingDirectory=/var/lib/osnovano
+Environment=NODE_ENV=production
+Environment=NITRO_HOST=127.0.0.1
+Environment=NITRO_PORT=3000
+EnvironmentFile=-/etc/osnovano.env
+ExecStart=/usr/bin/node /srv/osnovano/current/server/index.mjs
+Restart=on-failure
+RestartSec=3
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/osnovano
+
+[Install]
+WantedBy=multi-user.target
