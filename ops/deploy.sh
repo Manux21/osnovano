@@ -24,7 +24,7 @@ target="$DEPLOY_USER@$DEPLOY_HOST"
 staging="/srv/osnovano/releases/.incoming-$RELEASE_ID"
 
 ssh "${ssh_options[@]}" "$target" "mkdir -p '$staging'"
-rsync -az --delete --chmod=u=rwX,g=rX,o= \
+rsync -az --no-owner --no-group --delete --chmod=u=rwX,g=rX,o= \
     -e "ssh -i '$task_ssh_dir/key' -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile='$task_ssh_dir/known_hosts' -o ConnectTimeout=15" \
     .output/ "$target:$staging/"
 ssh "${ssh_options[@]}" "$target" "/usr/local/bin/osnovano-activate '$RELEASE_ID'"
