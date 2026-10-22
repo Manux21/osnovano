@@ -1,0 +1,179 @@
+.root {
+    --pointer-x: 0;
+    --pointer-y: 0;
+
+    position: absolute;
+    inset: auto 0 -36% 0;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.62;
+    mask: linear-gradient(to top, #000 24%, transparent 88%);
+    pointer-events: none;
+}
+
+.canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.plane,
+.volumes {
+    transition: transform 900ms var(--ease-out);
+}
+
+.plane {
+    transform: translate(
+        calc(var(--pointer-x) * 10px),
+        calc(var(--pointer-y) * 5px)
+    );
+}
+
+.volumes {
+    transform: translate(
+        calc(var(--pointer-x) * 20px),
+        calc(var(--pointer-y) * 10px)
+    );
+}
+
+.sway {
+    animation: sway 16s var(--ease-in-out) infinite;
+}
+
+.grid,
+.dots,
+.outline,
+.volumeLines {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.grid {
+    stroke: rgb(240 240 240 / 16%);
+    stroke-width: 1;
+}
+
+.dots {
+    stroke: rgb(240 240 240 / 42%);
+    stroke-width: 2;
+}
+
+.outline,
+.volumeLines {
+    stroke: rgb(240 240 240 / 42%);
+    stroke-width: 1;
+}
+
+.armed .grid,
+.armed .outline,
+.armed .volumeLines {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+}
+
+.armed .canvas {
+    opacity: 0;
+    clip-path: polygon(50% 78%, 50% 78%, 50% 78%, 50% 78%);
+}
+
+.armed .dots {
+    opacity: 0;
+}
+
+.revealed .canvas {
+    animation: fieldReveal 2200ms var(--ease-out) both;
+}
+
+.revealed .outline {
+    animation: trace 1100ms var(--ease-out) 100ms both;
+}
+
+.revealed .grid {
+    animation: trace 900ms var(--ease-out) both;
+    animation-delay: calc(220ms + var(--grid-index) * 52ms);
+}
+
+.revealed .volumeLines {
+    animation: trace 1200ms var(--ease-out) both;
+    animation-delay: calc(680ms + var(--volume-index) * 180ms);
+}
+
+.revealed .dots {
+    animation: dotsIn 900ms var(--ease-out) 1150ms both;
+}
+
+@keyframes fieldReveal {
+    0% {
+        opacity: 0;
+        clip-path: polygon(50% 78%, 50% 78%, 50% 78%, 50% 78%);
+    }
+
+    28% {
+        opacity: 0.92;
+    }
+
+    100% {
+        opacity: 1;
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }
+}
+
+@keyframes trace {
+    0% {
+        opacity: 0;
+        stroke-dashoffset: 1;
+    }
+
+    45% {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 1;
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes dotsIn {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes sway {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .root,
+    .plane,
+    .volumes,
+    .sway {
+        animation: none;
+        transform: none;
+        transition: none;
+    }
+
+    .armed .grid,
+    .armed .outline,
+    .armed .volumeLines {
+        stroke-dasharray: none;
+        stroke-dashoffset: 0;
+    }
+
+    .armed .dots {
+        opacity: 1;
+    }
+
+    .armed .canvas {
+        opacity: 1;
+        clip-path: none;
+    }
+}

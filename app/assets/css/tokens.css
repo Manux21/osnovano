@@ -1,0 +1,75 @@
+:root {
+    color-scheme: light;
+
+    --paper: #f1efea;
+    --paper-deep: color-mix(in srgb, var(--ink) 8%, var(--paper));
+    --ink: #161511;
+    --chalk: color-mix(in srgb, var(--paper) 96%, white);
+
+    --bg: var(--paper);
+    --fg: var(--ink);
+    --muted-light: color-mix(in srgb, var(--ink) 62%, var(--paper));
+    --muted-dark: color-mix(in srgb, var(--chalk) 72%, var(--ink));
+    --surface-dark: color-mix(in srgb, var(--ink) 92%, var(--paper));
+    --image-light: color-mix(in srgb, var(--ink) 9%, var(--paper));
+    --image-dark: color-mix(in srgb, var(--ink) 85%, var(--paper));
+
+    --fg-muted: var(--muted-light);
+    --surface: var(--paper-deep);
+    --image-bg: var(--image-light);
+    --line: color-mix(in srgb, var(--ink) 14%, transparent);
+    --line-strong: color-mix(in srgb, var(--ink) 34%, transparent);
+    --danger: #9c4326;
+
+    --max-width: 1520px;
+    --page-padding: clamp(20px, 4.4vw, 72px);
+    --gutter: clamp(16px, 2.2vw, 32px);
+    --header-height: clamp(60px, 6vw, 76px);
+
+    --axon-size: 240px;
+    --axon-stroke: 1.5px;
+    --axon-detail-stroke: 1.25px;
+    --axon-guide-stroke: 1px;
+    --axon-dot-stroke: 1.6px;
+    --axon-primary-contrast: 80%;
+    --axon-detail-contrast: 62%;
+    --axon-guide-contrast: 34%;
+
+    --space-3xs: 4px;
+    --space-2xs: 8px;
+    --space-xs: 16px;
+    --space-sm: 24px;
+    --space-md: 32px;
+    --space-lg: 48px;
+    --space-xl: 72px;
+    --block-space: clamp(40px, 6vw, 88px);
+    --section-space: clamp(88px, 12vw, 184px);
+
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.62, 0.04, 0.34, 1);
+    --duration-fast: 200ms;
+    --duration: 480ms;
+    --duration-slow: 900ms;
+
+    --font-sans: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+:root[data-palette='paper'] {
+    --chalk: #f7f6f3;
+    --muted-light: #7c786e;
+    --muted-dark: #918c80;
+}
+
+[data-theme='dark'] {
+    color-scheme: dark;
+
+    --bg: var(--ink);
+    --fg: var(--chalk);
+    --fg-muted: var(--muted-dark);
+    --surface: var(--surface-dark);
+    --image-bg: var(--image-dark);
+    --line: color-mix(in srgb, var(--chalk) 16%, transparent);
+    --line-strong: color-mix(in srgb, var(--chalk) 42%, transparent);
+    --danger: #d98263;
+}

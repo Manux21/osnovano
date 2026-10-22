@@ -1,0 +1,69 @@
+.canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.canvas path {
+    vector-effect: non-scaling-stroke;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.guide {
+    stroke: color-mix(in srgb, var(--fg) var(--axon-guide-contrast), var(--bg));
+    stroke-width: var(--axon-guide-stroke);
+}
+
+.dots {
+    stroke: color-mix(in srgb, var(--fg) var(--axon-guide-contrast), var(--bg));
+    stroke-width: var(--axon-dot-stroke);
+}
+
+.surface {
+    stroke: color-mix(in srgb, var(--fg) var(--axon-primary-contrast), var(--bg));
+    stroke-width: var(--axon-stroke);
+}
+
+.top,
+.front {
+    fill: var(--bg);
+}
+
+.side {
+    fill: color-mix(in srgb, var(--fg) 2%, var(--bg));
+}
+
+.detail {
+    fill: none;
+    stroke: color-mix(in srgb, var(--fg) var(--axon-detail-contrast), var(--bg));
+    stroke-width: var(--axon-detail-stroke);
+}
+
+/* Drawings are complete from the first paint. Only their position animates. */
+.model {
+    transform: translateY(calc(var(--axon-lift, 0) * -3px));
+    transition: transform var(--duration) var(--ease-out);
+}
+
+.active .arrival {
+    animation: settle var(--process-enter-duration, 800ms) var(--ease-out) both;
+}
+
+@keyframes settle {
+    from { translate: 0 3px; }
+    to { translate: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .model {
+        transform: none;
+        transition: none;
+    }
+
+    .active .arrival {
+        translate: none;
+        animation: none;
+    }
+}

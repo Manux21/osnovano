@@ -1,0 +1,56 @@
+.wash {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: var(--bg);
+    pointer-events: none;
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes stretch {
+    from {
+        clip-path: inset(0 0 96% 0);
+    }
+
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+@keyframes settle {
+    from {
+        opacity: 0;
+        translate: 0 28px;
+    }
+
+    to {
+        opacity: 1;
+        translate: none;
+    }
+}
+
+@supports (animation-timeline: view()) {
+    .wash {
+        animation: stretch linear both;
+        animation-timeline: view();
+        animation-range: entry 0% cover 42%;
+    }
+
+    .content {
+        animation: settle linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 48%;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .wash,
+        .content {
+            animation: none;
+            clip-path: none;
+        }
+    }
+}

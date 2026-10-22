@@ -1,0 +1,105 @@
+.canvas path {
+    vector-effect: non-scaling-stroke;
+}
+
+.canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.guides {
+    opacity: 1;
+    transition: opacity 500ms var(--ease-out);
+}
+
+.site,
+.axis {
+    stroke: color-mix(in srgb, var(--fg) var(--axon-guide-contrast), var(--bg));
+    stroke-width: var(--axon-guide-stroke);
+    stroke-dasharray: 2 2;
+}
+
+.dots {
+    stroke: color-mix(in srgb, var(--fg) var(--axon-guide-contrast), var(--bg));
+    stroke-width: var(--axon-dot-stroke);
+    stroke-linecap: round;
+}
+
+.ticks {
+    stroke: color-mix(in srgb, var(--fg) var(--axon-guide-contrast), var(--bg));
+    stroke-width: var(--axon-guide-stroke);
+}
+
+.part {
+    transform: translate(
+        calc(var(--scene-explode, 0) * var(--part-x)),
+        calc(var(--scene-explode, 0) * var(--part-y))
+    );
+    transition: transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.surface {
+    stroke: color-mix(in srgb, var(--fg) var(--axon-primary-contrast), var(--bg));
+    stroke-width: var(--axon-stroke);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.top,
+.front {
+    fill: var(--bg);
+}
+
+.side {
+    fill: color-mix(in srgb, var(--fg) 2%, var(--bg));
+}
+
+.detail {
+    fill: none;
+    stroke: color-mix(in srgb, var(--fg) var(--axon-detail-contrast), var(--bg));
+    stroke-width: var(--axon-detail-stroke);
+}
+
+.waiting .guides,
+.waiting .assembly {
+    opacity: 0;
+}
+
+.waiting .assembly {
+    transform: translate(var(--part-x), var(--part-y));
+}
+
+.assembled .assembly {
+    animation: assemble 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--scene-delay) + var(--part-delay));
+}
+
+@keyframes assemble {
+    from {
+        opacity: 0;
+        transform: translate(var(--part-x), var(--part-y));
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .part,
+    .assembly {
+        transform: none;
+        animation: none;
+        transition: none;
+    }
+
+    .guides,
+    .waiting .guides,
+    .waiting .assembly {
+        opacity: 1;
+        transition: none;
+    }
+}

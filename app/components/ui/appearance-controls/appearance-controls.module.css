@@ -1,0 +1,236 @@
+.root {
+    position: absolute;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--fg);
+}
+
+.chooser {
+    position: relative;
+}
+
+.mode,
+.reset,
+.choose {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 36px;
+    border-radius: 9px;
+    transition: background-color 180ms ease;
+}
+
+.mode {
+    width: 36px;
+}
+
+.reset {
+    gap: 7px;
+    padding: 4px 8px;
+}
+
+.resetLabel {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.03em;
+}
+
+.choose {
+    gap: 9px;
+    padding: 4px 8px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.choose::-webkit-details-marker {
+    display: none;
+}
+
+.mode:hover,
+.reset:hover,
+.choose:hover {
+    background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.swatch {
+    display: block;
+    width: 22px;
+    height: 22px;
+    flex: none;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--swatch-paper) 50%, var(--swatch-ink) 50%);
+    box-shadow: 0 0 0 1px color-mix(in srgb, currentColor 25%, transparent);
+}
+
+.chevron {
+    transition: rotate 180ms ease;
+}
+
+.chooser[open] .chevron {
+    rotate: 180deg;
+}
+
+.separator {
+    width: 1px;
+    height: 16px;
+    background: color-mix(in srgb, currentColor 22%, transparent);
+}
+
+.popover {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 0;
+    width: min(420px, calc(100vw - 2 * var(--page-padding)));
+    max-height: calc(100svh - var(--header-height) - 24px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 16px;
+    border: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+    border-radius: 16px;
+    background: var(--header-glass);
+    box-shadow: 0 16px 48px rgb(0 0 0 / 18%);
+}
+
+.heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.count {
+    font-size: 11px;
+    font-weight: 400;
+    opacity: 0.65;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 68px;
+    padding: 10px;
+    border: 1px solid color-mix(in srgb, currentColor 10%, transparent);
+    border-radius: 10px;
+    text-align: left;
+    transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.option:hover {
+    background: color-mix(in srgb, currentColor 7%, transparent);
+}
+
+.selected {
+    border-color: color-mix(in srgb, currentColor 70%, transparent);
+    background: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+.copy {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+}
+
+.name {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.25;
+}
+
+.description {
+    font-size: 10px;
+    line-height: 1.4;
+    opacity: 0.7;
+}
+
+@media (max-width: 699px) {
+    .label,
+    .separator,
+    .chevron {
+        display: none;
+    }
+
+    .root {
+        gap: 2px;
+    }
+
+    .choose {
+        padding-inline: 4px;
+        min-width: 30px;
+    }
+
+    .popover {
+        padding: 12px;
+    }
+
+    .option {
+        gap: 8px;
+        padding: 8px;
+        min-height: 72px;
+    }
+
+    .option .swatch {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (max-width: 1099px) {
+    .resetLabel {
+        display: none;
+    }
+
+    .reset {
+        width: 30px;
+        padding: 4px;
+    }
+}
+
+@media (max-width: 359px) {
+    .root {
+        gap: 0;
+    }
+
+    .choose,
+    .reset {
+        width: 26px;
+        min-width: 26px;
+    }
+
+    .mode {
+        width: 28px;
+    }
+
+    .swatch {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mode,
+    .reset,
+    .choose,
+    .chevron,
+    .option {
+        transition: none;
+    }
+}

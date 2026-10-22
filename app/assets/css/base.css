@@ -1,0 +1,62 @@
+html {
+    background: var(--bg);
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-height) + var(--space-xs));
+}
+
+html[data-nav-open] {
+    overflow: hidden;
+}
+
+body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    font-synthesis: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+[data-theme] {
+    background: var(--bg);
+    color: var(--fg);
+}
+
+::selection {
+    background: var(--fg);
+    color: var(--bg);
+}
+
+:focus-visible {
+    outline: 1px solid var(--fg);
+    outline-offset: 4px;
+}
+
+.page-enter-active,
+.page-leave-active {
+    transition:
+        opacity 280ms var(--ease-out),
+        translate 280ms var(--ease-out);
+}
+
+.page-enter-from {
+    opacity: 0;
+    translate: 0 12px;
+}
+
+.page-leave-to {
+    opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .page-enter-active,
+    .page-leave-active {
+        transition: none;
+    }
+}

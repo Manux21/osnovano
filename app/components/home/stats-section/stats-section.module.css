@@ -1,0 +1,28 @@
+.root {
+    position: relative;
+    isolation: isolate;
+    padding-block: var(--block-space);
+    margin-top: var(--block-space);
+    overflow: clip;
+}
+
+.root[data-theme] {
+    background: transparent;
+}
+
+.list {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+@media (min-width: 700px) {
+    .list {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: var(--gutter);
+    }
+
+    .list > * + * {
+        padding-left: var(--gutter);
+        border-left: 1px solid var(--line);
+    }
+}

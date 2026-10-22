@@ -1,0 +1,73 @@
+.root {
+    display: grid;
+    gap: var(--space-xs);
+    align-content: start;
+}
+
+.media {
+    position: relative;
+    overflow: clip;
+}
+
+.root:hover .media img {
+    scale: 1.04;
+}
+
+.content {
+    position: relative;
+    display: grid;
+    gap: var(--space-2xs);
+    padding-top: var(--space-xs);
+    border-top: 1px solid var(--line);
+}
+
+.content::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    inset-inline: 0;
+    height: 1px;
+    background: var(--fg);
+    scale: 0 1;
+    transform-origin: left center;
+    transition: scale var(--duration) var(--ease-out);
+}
+
+.root:hover .content::after {
+    scale: 1 1;
+}
+
+.line {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-xs);
+}
+
+.arrow {
+    opacity: 0;
+    translate: -10px 0;
+    transition:
+        opacity var(--duration) var(--ease-out),
+        translate var(--duration) var(--ease-out);
+}
+
+.root:hover .arrow {
+    opacity: 1;
+    translate: none;
+}
+
+.meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2xs) var(--space-xs);
+    color: var(--fg-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .content::after,
+    .arrow {
+        transition: none;
+    }
+}

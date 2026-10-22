@@ -1,0 +1,26 @@
+.root {
+    display: flex;
+    align-items: center;
+    min-height: calc(100svh - var(--header-height));
+    padding-block: var(--section-space);
+}
+
+.inner {
+    display: grid;
+    gap: var(--block-space);
+}
+
+.copy {
+    display: grid;
+    gap: var(--space-md);
+    justify-items: start;
+    max-width: 46ch;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-md);
+    padding-top: var(--space-2xs);
+}

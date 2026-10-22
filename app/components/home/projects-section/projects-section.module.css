@@ -1,0 +1,11 @@
+.root {
+    padding-top: var(--section-space);
+}
+
+.action {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--block-space);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--line);
+}

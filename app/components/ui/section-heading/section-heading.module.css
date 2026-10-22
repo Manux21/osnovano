@@ -1,0 +1,33 @@
+.root {
+    display: grid;
+    gap: var(--space-sm);
+    padding-top: var(--space-xs);
+    border-top: 1px solid var(--line);
+    margin-bottom: var(--block-space);
+}
+
+.main {
+    display: grid;
+    gap: var(--space-md);
+}
+
+.main > span {
+    color: var(--fg-muted);
+}
+
+.copy {
+    color: var(--fg-muted);
+}
+
+@media (min-width: 900px) {
+    .root {
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        align-items: end;
+        gap: var(--space-lg);
+    }
+
+    .copy {
+        justify-self: end;
+        padding-bottom: var(--space-3xs);
+    }
+}

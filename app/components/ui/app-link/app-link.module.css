@@ -1,0 +1,11 @@
+.root {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    text-decoration-color: var(--line-strong);
+    transition: text-decoration-color var(--duration-fast) var(--ease-out);
+}
+
+.root:hover {
+    text-decoration-color: currentcolor;
+}

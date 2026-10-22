@@ -1,0 +1,119 @@
+.root {
+    position: relative;
+    isolation: isolate;
+    padding-block: var(--section-space);
+    margin-top: var(--block-space);
+    overflow: clip;
+}
+
+.root[data-theme] {
+    background: transparent;
+}
+
+.list {
+    --process-enter-duration: 800ms;
+
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.track {
+    display: none;
+}
+
+.item {
+    display: grid;
+    gap: var(--space-xs);
+    align-content: start;
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--line);
+}
+
+.item:hover {
+    --axon-lift: 1;
+}
+
+.glyph {
+    width: min(100%, var(--axon-size));
+    margin-bottom: var(--space-2xs);
+}
+
+@media (min-width: 800px) {
+    .list {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: var(--gutter);
+    }
+
+    .track {
+        --column: calc((100% - 3 * var(--gutter)) / 4);
+
+        display: block;
+        position: relative;
+        grid-column: 1 / -1;
+        height: 1px;
+        margin-bottom: var(--space-md);
+        background: var(--line);
+    }
+
+    .beam {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+            90deg,
+            var(--fg) 0%,
+            var(--fg) 82%,
+            color-mix(in srgb, var(--fg) 58%, transparent) 93%,
+            transparent 100%
+        );
+        transform: scaleX(0);
+        transform-origin: left center;
+        will-change: transform;
+    }
+
+    .revealed .beam {
+        animation: beamTravel var(--process-enter-duration) var(--ease-out) both;
+    }
+
+    .node {
+        position: absolute;
+        top: 50%;
+        left: calc(var(--index) * (var(--column) + var(--gutter)) + var(--column) / 2);
+        width: 7px;
+        height: 7px;
+        translate: -50% -50%;
+        rotate: 45deg;
+        background: var(--fg);
+        border: 1px solid var(--fg);
+        scale: 1;
+    }
+
+    .item {
+        padding-top: 0;
+        border-top: none;
+    }
+}
+
+@keyframes beamTravel {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .revealed .beam {
+        animation: none;
+    }
+
+    .beam {
+        transform: scaleX(1);
+    }
+
+    .node {
+        background: var(--fg);
+        border-color: var(--fg);
+    }
+}

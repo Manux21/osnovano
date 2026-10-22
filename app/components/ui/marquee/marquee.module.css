@@ -1,0 +1,46 @@
+.root {
+    overflow: hidden;
+    padding-block: var(--space-xs);
+    border-block: 1px solid var(--line);
+    mask: linear-gradient(90deg, transparent, var(--fg) 8%, var(--fg) 92%, transparent);
+}
+
+.track {
+    display: flex;
+    width: max-content;
+    animation: slide 44s linear infinite;
+}
+
+.line {
+    display: flex;
+    align-items: center;
+    gap: clamp(28px, 5vw, 72px);
+    padding-right: clamp(28px, 5vw, 72px);
+    color: var(--fg-muted);
+}
+
+.line > * {
+    display: flex;
+    align-items: center;
+    gap: clamp(28px, 5vw, 72px);
+    white-space: nowrap;
+}
+
+.line > *::after {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: var(--line-strong);
+}
+
+@keyframes slide {
+    to {
+        translate: -50% 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .track {
+        animation: none;
+    }
+}

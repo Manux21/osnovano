@@ -1,0 +1,45 @@
+.root {
+    display: flex;
+    align-items: center;
+    gap: clamp(20px, 2.6vw, 44px);
+}
+
+.link {
+    position: relative;
+    color: var(--fg-muted);
+    transition: color var(--duration-fast) var(--ease-out);
+}
+
+.link::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    bottom: -6px;
+    height: 1px;
+    background: currentcolor;
+    scale: 0 1;
+    transform-origin: left center;
+    transition: scale var(--duration) var(--ease-out);
+}
+
+.link:hover {
+    color: var(--fg);
+}
+
+.link:hover::after {
+    scale: 1 1;
+}
+
+.active {
+    color: var(--fg);
+}
+
+.active::after {
+    scale: 1 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .link::after {
+        transition: none;
+    }
+}

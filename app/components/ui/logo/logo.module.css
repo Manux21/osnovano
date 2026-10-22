@@ -1,0 +1,96 @@
+.root {
+    display: block;
+    position: relative;
+}
+
+.canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.glyph {
+    fill: currentcolor;
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+}
+
+.sm {
+    width: clamp(112px, 11vw, 148px);
+}
+
+.md {
+    width: min(100%, 420px);
+}
+
+.full {
+    width: 100%;
+}
+
+.animated .glyph {
+    animation: assembleGlyph 900ms var(--ease-out) both;
+    animation-delay: calc(420ms + var(--glyph-index) * 95ms);
+}
+
+.guide {
+    position: absolute;
+    right: 0;
+    bottom: -12%;
+    left: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, currentcolor 15%, currentcolor 85%, transparent);
+    transform-origin: left;
+    animation: guidePass 1350ms var(--ease-in-out) 280ms both;
+}
+
+@keyframes assembleGlyph {
+    from {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(42%) scaleY(0.58);
+    }
+
+    58% {
+        filter: blur(0);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: none;
+    }
+}
+
+@keyframes guidePass {
+    0% {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+
+    18% {
+        opacity: 0.48;
+    }
+
+    72% {
+        opacity: 0.48;
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+
+    100% {
+        opacity: 0;
+        transform: scaleX(0);
+        transform-origin: right;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animated .glyph {
+        animation: none;
+    }
+
+    .guide {
+        display: none;
+    }
+}

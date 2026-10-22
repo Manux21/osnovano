@@ -1,0 +1,27 @@
+.root {
+    display: grid;
+    gap: var(--space-md);
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--line);
+}
+
+.item {
+    display: grid;
+    gap: var(--space-3xs);
+}
+
+.item dt {
+    color: var(--fg-muted);
+}
+
+@media (min-width: 700px) {
+    .root {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: var(--gutter);
+    }
+
+    .item + .item {
+        padding-left: var(--gutter);
+        border-left: 1px solid var(--line);
+    }
+}

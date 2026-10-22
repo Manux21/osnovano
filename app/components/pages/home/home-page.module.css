@@ -1,0 +1,7 @@
+.root {
+    display: block;
+}
+
+.root > [data-theme] + section {
+    padding-top: var(--block-space);
+}

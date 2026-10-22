@@ -1,0 +1,173 @@
+.root {
+    --pointer-x: 0;
+    --pointer-y: 0;
+    --explode: 0;
+    --stroke: 1.2;
+
+    opacity: 0.72;
+    filter: drop-shadow(0 24px 34px color-mix(in srgb, var(--fg) 6%, transparent));
+}
+
+.canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.foundation {
+    transform: translate(
+        calc(var(--pointer-x) * 9px),
+        calc(var(--pointer-y) * 5px + var(--explode) * 28px)
+    );
+    transition: transform 520ms var(--ease-out);
+}
+
+.module {
+    transform: translate(
+        calc(var(--pointer-x) * (var(--depth) + 1) * 7px),
+        calc(var(--pointer-y) * (var(--depth) + 1) * 4px - var(--explode) * var(--depth) * 34px)
+    );
+    transition: transform 520ms var(--ease-out);
+}
+
+.moduleBody {
+    animation: moduleEnter 1200ms var(--ease-out) both;
+    animation-delay: calc(380ms + var(--depth) * 150ms);
+}
+
+.baseFill {
+    fill: color-mix(in srgb, var(--fg) 1.5%, transparent);
+}
+
+.moduleFill {
+    fill: color-mix(in srgb, var(--fg) 1.8%, transparent);
+}
+
+.baseOutline,
+.baseGrid,
+.moduleOutline,
+.moduleInner,
+.moduleSection,
+.moduleGrid,
+.ticks,
+.axis {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+}
+
+.baseOutline,
+.moduleOutline {
+    stroke: color-mix(in srgb, var(--fg) 58%, transparent);
+    stroke-width: var(--stroke);
+}
+
+.moduleInner,
+.moduleSection {
+    stroke: color-mix(in srgb, var(--fg) 22%, transparent);
+    stroke-width: calc(var(--stroke) * 0.78);
+}
+
+.baseGrid,
+.moduleGrid {
+    stroke: color-mix(in srgb, var(--fg) 15%, transparent);
+    stroke-width: calc(var(--stroke) * 0.68);
+}
+
+.axis {
+    stroke: color-mix(in srgb, var(--fg) 25%, transparent);
+    stroke-width: calc(var(--stroke) * 0.8);
+    stroke-dasharray: 0.008 0.016;
+    animation: axisEnter 1600ms var(--ease-out) 800ms both;
+}
+
+.ticks {
+    stroke: color-mix(in srgb, var(--fg) 56%, transparent);
+    stroke-width: calc(var(--stroke) * 1.2);
+    animation: fadeIn 700ms var(--ease-out) 1400ms both;
+}
+
+.baseOutline,
+.baseGrid,
+.moduleOutline,
+.moduleInner,
+.moduleSection,
+.moduleGrid {
+    stroke-dasharray: 1;
+    animation: draw 1750ms var(--ease-out) both;
+}
+
+.baseOutline,
+.baseGrid {
+    animation-delay: 140ms;
+}
+
+.moduleOutline {
+    animation-delay: calc(360ms + var(--depth) * 140ms);
+}
+
+.moduleInner,
+.moduleSection,
+.moduleGrid {
+    animation-delay: calc(700ms + var(--depth) * 140ms);
+}
+
+@keyframes draw {
+    from { stroke-dashoffset: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+}
+
+@keyframes moduleEnter {
+    from {
+        opacity: 0;
+        transform: translateY(36px);
+    }
+}
+
+@keyframes axisEnter {
+    from {
+        opacity: 0;
+        stroke-dashoffset: 0.3;
+    }
+}
+
+@media (max-width: 899px) {
+    .root {
+        --stroke: 1;
+        opacity: 0.58;
+    }
+
+    .baseGrid,
+    .moduleGrid {
+        display: none;
+    }
+
+    .moduleInner {
+        opacity: 0.62;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .foundation,
+    .module {
+        transform: none;
+        transition: none;
+    }
+
+    .moduleBody,
+    .ticks,
+    .axis,
+    .baseOutline,
+    .baseGrid,
+    .moduleOutline,
+    .moduleInner,
+    .moduleSection,
+    .moduleGrid {
+        animation: none;
+    }
+}

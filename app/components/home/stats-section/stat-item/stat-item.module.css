@@ -1,0 +1,9 @@
+.root {
+    display: grid;
+    gap: var(--space-xs);
+    align-content: start;
+}
+
+.root > span {
+    color: var(--fg-muted);
+}
