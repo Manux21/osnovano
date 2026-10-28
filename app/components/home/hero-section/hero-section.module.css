@@ -11,7 +11,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: url('/images/projects/barvikha/cover.jpg') center / cover no-repeat;
+    background: var(--hero-poster) center / cover no-repeat;
 }
 
 .video {

@@ -20,7 +20,7 @@ export const ContactSection = defineComponent({
     name: 'ContactSection',
 
     setup() {
-        const { form, errors, status, serverMessage, submit } = useProjectInquiry()
+        const { form, errors, formMessage, submit } = useProjectInquiry()
 
         function handleSubmit(event: Event) {
             event.preventDefault()
@@ -76,82 +76,73 @@ export const ContactSection = defineComponent({
                                 <AppLink to={ROUTES.privacy}>политикой конфиденциальности</AppLink>.
                             </TextView>
                         </Reveal>
-                        {status.value === 'success' ? (
-                            <Reveal class={s.success} step={1}>
-                                <TextView tag="h3" variant="subheading">Заявка отправлена</TextView>
-                                <TextView variant="body">
-                                    Мы прочитаем письмо и ответим. Если задача нам не подходит, тоже скажем прямо.
-                                </TextView>
-                            </Reveal>
-                        ) : (
-                            <Reveal class={s.formWrap} step={1}>
-                                <form class={s.form} onSubmit={handleSubmit} novalidate>
-                                    <div class={s.row}>
-                                        <FormField id="inquiry-name" label="Имя" error={errors.value.name}>
-                                            <input
-                                                id="inquiry-name"
-                                                name="name"
-                                                autocomplete="name"
-                                                value={form.name}
-                                                onInput={handleNameInput}
-                                            />
-                                        </FormField>
-                                        <FormField id="inquiry-email" label="Email" error={errors.value.email}>
-                                            <input
-                                                id="inquiry-email"
-                                                name="email"
-                                                type="email"
-                                                autocomplete="email"
-                                                value={form.email}
-                                                onInput={handleEmailInput}
-                                            />
-                                        </FormField>
-                                    </div>
-                                    <div class={s.row}>
-                                        <FormField id="inquiry-phone" label="Телефон" error={errors.value.phone}>
-                                            <input
-                                                id="inquiry-phone"
-                                                name="phone"
-                                                type="tel"
-                                                autocomplete="tel"
-                                                value={form.phone}
-                                                onInput={handlePhoneInput}
-                                            />
-                                        </FormField>
-                                        <FormField id="inquiry-topic" label="Тип проекта" error={errors.value.topic}>
-                                            <select
-                                                id="inquiry-topic"
-                                                name="topic"
-                                                value={form.topic}
-                                                onChange={handleTopicChange}
-                                            >
-                                                {TOPICS.map(([value, label]) => (
-                                                    <option key={value} value={value}>
-                                                        {label}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                        </FormField>
-                                    </div>
-                                    <FormField id="inquiry-message" label="Задача" error={errors.value.message}>
-                                        <textarea
-                                            id="inquiry-message"
-                                            name="message"
-                                            value={form.message}
-                                            onInput={handleMessageInput}
+                        <Reveal class={s.formWrap} step={1}>
+                            <form class={s.form} onSubmit={handleSubmit} novalidate>
+                                <div class={s.row}>
+                                    <FormField id="inquiry-name" label="Имя" error={errors.value.name}>
+                                        <input
+                                            id="inquiry-name"
+                                            name="name"
+                                            autocomplete="name"
+                                            value={form.name}
+                                            onInput={handleNameInput}
                                         />
                                     </FormField>
-                                    <div class={s.actions}>
-                                        <Button type="submit" disabled={status.value === 'submitting'} arrow>
-                                            {status.value === 'submitting' ? 'Отправляем' : 'Отправить заявку'}
-                                        </Button>
-                                        {serverMessage.value && (
-                                            <TextView variant="caption">{serverMessage.value}</TextView>
-                                        )}
-                                    </div>
-                                </form>
-                            </Reveal>
-                        )}
+                                    <FormField id="inquiry-email" label="Email" error={errors.value.email}>
+                                        <input
+                                            id="inquiry-email"
+                                            name="email"
+                                            type="email"
+                                            autocomplete="email"
+                                            value={form.email}
+                                            onInput={handleEmailInput}
+                                        />
+                                    </FormField>
+                                </div>
+                                <div class={s.row}>
+                                    <FormField id="inquiry-phone" label="Телефон" error={errors.value.phone}>
+                                        <input
+                                            id="inquiry-phone"
+                                            name="phone"
+                                            type="tel"
+                                            autocomplete="tel"
+                                            value={form.phone}
+                                            onInput={handlePhoneInput}
+                                        />
+                                    </FormField>
+                                    <FormField id="inquiry-topic" label="Тип проекта" error={errors.value.topic}>
+                                        <select
+                                            id="inquiry-topic"
+                                            name="topic"
+                                            value={form.topic}
+                                            onChange={handleTopicChange}
+                                        >
+                                            {TOPICS.map(([value, label]) => (
+                                                <option key={value} value={value}>
+                                                    {label}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </FormField>
+                                </div>
+                                <FormField id="inquiry-message" label="Задача" error={errors.value.message}>
+                                    <textarea
+                                        id="inquiry-message"
+                                        name="message"
+                                        value={form.message}
+                                        onInput={handleMessageInput}
+                                    />
+                                </FormField>
+                                <div class={s.actions}>
+                                    <Button type="submit" arrow>
+                                        Отправить заявку
+                                    </Button>
+                                    {formMessage.value && (
+                                        <TextView variant="caption">{formMessage.value}</TextView>
+                                    )}
+                                </div>
+                            </form>
+                        </Reveal>
                     </div>
                 </PageContainer>
             </section>

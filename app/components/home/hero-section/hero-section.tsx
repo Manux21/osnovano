@@ -19,6 +19,7 @@ export const HeroSection = defineComponent({
     name: 'HeroSection',
 
     setup() {
+        const assetPath = useAssetPath()
         const activeVideoIndex = ref(0)
         const videoElements = ref<Array<HTMLVideoElement | null>>([])
 
@@ -52,7 +53,11 @@ export const HeroSection = defineComponent({
 
         return () => (
             <section class={s.root} data-header-tone="dark">
-                <div class={s.scene} aria-hidden="true">
+                <div
+                    class={s.scene}
+                    style={{ '--hero-poster': `url(${assetPath('/images/projects/barvikha/cover.jpg')})` }}
+                    aria-hidden="true"
+                >
                     {HERO_VIDEOS.map((video, index) => (
                         <video
                             key={video}
@@ -60,12 +65,12 @@ export const HeroSection = defineComponent({
                                 videoElements.value[index] = element as HTMLVideoElement | null
                             }}
                             class={[s.video, index === activeVideoIndex.value && s.videoActive]}
-                            src={video}
+                            src={assetPath(video)}
                             autoplay={index === 0}
                             muted
                             playsinline
                             preload="auto"
-                            poster={index === 0 ? '/images/projects/barvikha/cover.jpg' : undefined}
+                            poster={index === 0 ? assetPath('/images/projects/barvikha/cover.jpg') : undefined}
                             onEnded={index === activeVideoIndex.value ? playNextVideo : undefined}
                         />
                     ))}

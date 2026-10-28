@@ -41,9 +41,10 @@ export const AppImage = defineComponent({
     },
 
     setup(props) {
-        const src = computed(() => unsplashSrc(props.src, 1280))
-        const srcset = computed(() => unsplashSrcSet(props.src, props.widths))
-        const preview = computed(() => `url(${unsplashSrc(props.src, PREVIEW_WIDTH)})`)
+        const assetPath = useAssetPath()
+        const src = computed(() => assetPath(unsplashSrc(props.src, 1280)))
+        const srcset = computed(() => assetPath(unsplashSrcSet(props.src, props.widths)))
+        const preview = computed(() => `url(${assetPath(unsplashSrc(props.src, PREVIEW_WIDTH))})`)
 
         return () => (
             <div

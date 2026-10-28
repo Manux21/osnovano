@@ -1,48 +1,39 @@
 # Основано
 
-Сайт архитектурного бюро. Nuxt 4, Vue 3, TypeScript, TSX.
+Статический сайт архитектурного бюро. Nuxt 4, Vue 3, TypeScript, TSX.
+Требуется Node.js 22 или новее.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Сборка: `npm run build`. Просмотр production-сборки: `npm run preview`.
-
 ## Публикация
 
-Сайт: http://147.45.245.107. Пуш в `main` запускает workflow
-`.github/workflows/deploy.yml`; его также можно запустить вручную в GitHub Actions.
-Требуется Node.js 22 или новее.
+Сайт: https://manux21.github.io/osnovano/.
 
-GitHub Actions выполняет `npm ci` и `npm run build`, отправляет `.output` по SSH,
-переключает текущую сборку и проверяет `/api/health`. Ошибка сборки не меняет сайт.
-Если новая версия не запускается, деплой возвращает предыдущую. Сохраняются пять
-последних сборок. Повторный запуск workflow создаёт отдельную сборку.
+Пуш в `main` запускает `.github/workflows/deploy.yml`: GitHub Actions собирает
+статические страницы командой `npm run generate` и публикует `.output/public`
+на GitHub Pages. Workflow также можно запустить вручную в разделе Actions.
 
-Настройки репозитория в GitHub:
+В настройках репозитория **Settings → Pages → Build and deployment → Source**
+нужно выбрать **GitHub Actions**. Отдельный сервер и SSH-ключи не требуются.
 
-- Actions variables: `DEPLOY_HOST` (адрес сервера), `DEPLOY_USER` (`osnovano-deploy`).
-- Actions secrets: `DEPLOY_SSH_KEY` (отдельный приватный ключ деплоя),
-  `DEPLOY_KNOWN_HOSTS` (проверенная запись ключа SSH сервера).
+Workflow задаёт `NUXT_APP_BASE_URL=/osnovano/`, чтобы ссылки, картинки, видео
+и иконки работали в подкаталоге репозитория. `NUXT_PUBLIC_SITE_URL` задаёт
+полный адрес сайта для canonical и Open Graph.
 
-На сервере работают Nginx и systemd-служба `osnovano`. Node.js слушает только
-`127.0.0.1:3000`; Nginx принимает HTTP на порту 80. Сборки находятся в
-`/srv/osnovano/releases`, текущая версия — ссылка `/srv/osnovano/current`.
-Пользователь `osnovano-deploy` может обновлять сборки и перезапускать только эту
-службу. Само приложение работает от пользователя `osnovano` без права менять код.
+Локальная сборка с такими же параметрами:
 
-Заявки формы хранятся в `/var/lib/osnovano/.data/inquiries` и не удаляются при
-деплое. Этот каталог нужно включать в резервные копии. Обработчик сохраняет заявки
-на диск; отправка в почту или Telegram пока не подключена.
+```bash
+NUXT_APP_BASE_URL=/osnovano/ NUXT_PUBLIC_SITE_URL=https://manux21.github.io/osnovano npm run generate
+```
 
-Конфигурация сервера находится в `ops/`: `provision.sh` устанавливает пользователей
-и конфигурацию (запуск от root после установки `nodejs`, `nginx`, `rsync`, `curl`,
-`sudo` и размещения публичного ключа деплоя рядом как `deploy-key.pub`).
-`deploy.sh` загружает сборку, а `activate.sh` устанавливается на сервер как
-`/usr/local/bin/osnovano-activate`. Приватные ключи в репозиторий не добавляются.
+Готовый сайт находится в `.output/public`. Все страницы проектов создаются
+во время сборки и открываются напрямую без серверного приложения.
 
-При подключении домена нужно настроить DNS, HTTPS и `NUXT_PUBLIC_SITE_URL` в
-`/etc/osnovano.env`, затем выполнить `systemctl restart osnovano` от root.
+Форма сохранена для демонстрации верстки и проверки полей. Данные никуда
+не отправляются; после заполнения показывается сообщение об этом.
 
-Проверка службы: `systemctl status osnovano`; журнал: `journalctl -u osnovano`.
+Каталог `ops/` содержит прежние настройки серверного деплоя и не используется
+при публикации на GitHub Pages.

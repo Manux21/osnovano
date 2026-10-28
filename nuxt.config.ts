@@ -1,3 +1,5 @@
+const baseURL = process.env.NUXT_APP_BASE_URL || '/'
+
 export default defineNuxtConfig({
     compatibilityDate: '2025-07-15',
     devtools: { enabled: false },
@@ -12,6 +14,7 @@ export default defineNuxtConfig({
         },
     },
     app: {
+        baseURL,
         head: {
             htmlAttrs: {
                 lang: 'ru',
@@ -21,8 +24,8 @@ export default defineNuxtConfig({
             title: 'Основано',
             titleTemplate: '%s — Основано',
             link: [
-                { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-                { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+                { rel: 'icon', type: 'image/svg+xml', href: `${baseURL}favicon.svg` },
+                { rel: 'apple-touch-icon', href: `${baseURL}apple-touch-icon.png` },
                 { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
                 {
                     rel: 'preconnect',
@@ -49,12 +52,6 @@ export default defineNuxtConfig({
         prerender: {
             crawlLinks: true,
             routes: ['/', '/projects', '/privacy', '/personal-data', '/cookies'],
-        },
-        storage: {
-            inquiries: {
-                driver: 'fs',
-                base: './.data/inquiries',
-            },
         },
     },
 })
